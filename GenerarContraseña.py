@@ -1,5 +1,6 @@
 import random
 from tkinter import *
+from tkinter import messagebox as MessageBox
 
 raiz= Tk()
 raiz.geometry("450x420")
@@ -19,14 +20,19 @@ numeros = "0123456789"
 
 
 def mostrarContraseña():
+    try:
+        stringSimbolos = "".join(list ( capturaSimbolos.get()))
 
-    stringSimbolos = "".join(list ( capturaSimbolos.get()))
+        base = letrasmayus + letrasminuscula + numeros + stringSimbolos
 
-    base = letrasmayus + letrasminuscula + numeros + stringSimbolos
+        muestra = random.sample(base, int ( tamañoContraseña.get()))
+        password = "".join(muestra) 
+        contraseñaGenerada.set(password)
+        
+    except ValueError:
+        MessageBox.showerror("Error",  "Debes colocar un tamaño de contraseña valido \n puede tener hasta 58 caracteres. ")
 
-    muestra = random.sample(base, int ( tamañoContraseña.get()))
-    password = "".join(muestra) 
-    contraseñaGenerada.set(password)
+
 
 
 
@@ -43,7 +49,7 @@ cuadroTamaño.grid( row = 1, column = 0 , pady = 30 , padx = 10)
 cuadroEntradaSimbolos=Entry(raiz, textvariable= capturaSimbolos, width= 40).place(x=170, y=30) 
 cuadroEntradaTamaño=Entry(raiz, textvariable=tamañoContraseña, width= 10 ).place(x=170, y=115) 
 
-cuadroRespuesta=Entry(raiz, textvariable= contraseñaGenerada, width= 50).place(x=100, y=230) 
+cuadroRespuesta=Entry(raiz, textvariable= contraseñaGenerada, width= 50).place(x=90, y=250) 
 
 
 #botones
