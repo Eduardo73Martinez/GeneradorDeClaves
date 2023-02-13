@@ -10,7 +10,8 @@ raiz.title("Generador de contraseñas")
 capturaSimbolos= StringVar()
 tamañoContraseña = StringVar()
 contraseñaGenerada = StringVar()
-Check_value = BooleanVar()
+hayMayusculas= IntVar()
+hayEnteros = IntVar()
 
 # las bases para armar la contraseña con numeros en mayuscula y ninuscula
 letrasminuscula = "abcdefghijklmnopqrstwxyz"
@@ -23,17 +24,33 @@ def mostrarContraseña():
     try:
         stringSimbolos = "".join(list ( capturaSimbolos.get()))
 
-        base = letrasmayus + letrasminuscula + numeros + stringSimbolos
+        base = añadirMayusculasSiHayIndicacion() + añadirNumerosSiHayIndicacion() + letrasminuscula + stringSimbolos
 
         muestra = random.sample(base, int ( tamañoContraseña.get()))
         password = "".join(muestra) 
         contraseñaGenerada.set(password)
 
     except ValueError:
-        MessageBox.showerror("Error",  "Debes colocar un tamaño de contraseña valido \n puede tener hasta 58 caracteres. ")
+        MessageBox.showerror("Error",  " Debes colocar un tamaño de contraseña valido, \n puede tener hasta 58 caracteres. ")
 
 
         
+
+def añadirMayusculasSiHayIndicacion():
+    global letrasmayus
+    if (int(hayMayusculas.get() ) == 1):
+        return letrasmayus
+    else:
+        return ""
+
+
+def añadirNumerosSiHayIndicacion():
+    global numeros
+    if( int (hayEnteros.get()) == 1):
+        return numeros
+    else:
+        return ""
+
 
 
 
@@ -50,13 +67,13 @@ cuadroTamaño.grid( row = 0, column = 0 , pady = 30 , padx = 10)
 cuadroEntradaSimbolos=Entry(raiz, textvariable= capturaSimbolos, width= 40).place(x=170, y=115) 
 cuadroEntradaTamaño=Entry(raiz, textvariable=tamañoContraseña, width= 10 ).place(x=170, y=30) 
 
-cuadroRespuesta=Entry(raiz, textvariable= contraseñaGenerada, width= 50).place(x=90, y=250) 
+cuadroRespuesta=Entry(raiz, textvariable= contraseñaGenerada, width= 50).place(x=90, y=310) 
 
 
 #botones
-botonGenerar=Button(raiz, text="Generar Contraseña", command= lambda:mostrarContraseña()).place(x=200, y=340) 
+botonGenerar=Button(raiz, text="Generar contraseña", command= lambda:mostrarContraseña()).place(x=160, y=360) 
 
-C1 = Checkbutton(raiz, text = "Usar mayusculas", variable = Check_value, onvalue = 1, offvalue = 0, height=5, width = 20).place(x=150, y=140) 
-
+C1 = Checkbutton(raiz, text = "Usar mayusculas", variable= hayMayusculas, onvalue = 1, offvalue = 0, height=5, width = 20).place(x=145, y=150) 
+C2 = Checkbutton(raiz, text = "Usar números ", variable= hayEnteros, onvalue = 1, offvalue = 0, height=5, width = 20).place(x=145, y=210)
 
 raiz.mainloop()
