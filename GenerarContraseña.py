@@ -6,7 +6,7 @@ raiz= Tk()
 raiz.geometry("450x420")
 raiz.resizable(0,0)
 raiz.title("Generador de contraseñas")
-raiz['bg'] = '#83aeab'
+#raiz['bg'] = '#83aeab'
 
 capturaSimbolos= StringVar()
 tamañoContraseña = StringVar()
@@ -37,16 +37,16 @@ def mostrarContraseña():
 
 def mensajeDeErrorPorEntradaInvalida():
     if( hayMayusculaActivada() and not hayNumerosActivado()  ):
-        return MessageBox.showwarning("Error", "Debes colocar una contraseña menor de 49 caracteres")
+        return MessageBox.showwarning("Atencion", "Debes colocar una contraseña menor a {}  caracteres".format(49 + len(capturaSimbolos.get())))
 
     elif (  not hayMayusculaActivada() and  hayNumerosActivado() ):
-        return MessageBox.showwarning("Error", "Debes colocar una contraseña menor de 35 caracteres")
+        return MessageBox.showwarning("Atencion", "Debes colocar una contraseña menor a {} caracteres".format(35 + len(capturaSimbolos.get())))
 
     elif ( not hayMayusculaActivada() and not hayNumerosActivado() ):
-        return MessageBox.showwarning("Error",  " Debes colocar un tamaño de contraseña valido, \n puede tener hasta 24 caracteres. ")
+        return MessageBox.showwarning("Atencion",  " Debes colocar un tamaño de contraseña valido, \n puede tener hasta {} caracteres. ".format(24 + len(capturaSimbolos.get())))
     
     else:
-        return MessageBox.showerror("Error",  " Debes colocar un tamaño de contraseña valido, \n puede tener hasta 58 caracteres. ")
+        return MessageBox.showerror("Error ",  " Debes colocar un tamaño de contraseña valido, \n puede tener hasta {} caracteres. ".format(58 + len(capturaSimbolos.get())))
 
 def añadirMayusculasSiHayIndicacion():
     global letrasmayus
@@ -70,10 +70,20 @@ def hayNumerosActivado():
 def hayMayusculaActivada():
     return int(hayMayusculas.get() ) == 1
 
+def limpiarCuadroRespuesta():
+    return contraseñaGenerada.set("")
 
+def limpiarCampos():
+    contraseñaGenerada.set("")
+    capturaSimbolos.set ("")
+    hayMayusculas.set( 0)
+    hayEnteros.set (0)
+    tamañoContraseña.set("")
+
+    
 #los labels 
 
-cuadroTamaño = Label ( raiz, text="Cantidad \n caracteres:  ").place(x=10, y=70) 
+cuadroTamaño = Label ( raiz, text="Cantidad \n caracteres:  ").place(x=10, y=65) 
 #cuadroTamaño.grid( row = 0, column = 0 , pady = 30 , padx = 10)
 
 
@@ -82,8 +92,7 @@ cuadroSimbolos = Label ( raiz, text="Simbolos a usar \n (opcional):  ").place(x=
 
 
 
-
-milabel=Label(raiz, text="Especifica los campos", fg="black" ,bg="white", font=("Arial 18", 15),bd="2px").place(x=130, y=5)
+milabel=Label(raiz, text="Crea tu contraseña", fg="black" ,bg="white", font=("Arial 18", 15),bd="2px").place(x=130, y=5)
 
 #los entry
 cuadroEntradaTamaño=Entry(raiz, textvariable=tamañoContraseña, width= 10, font='Arial 15', fg='Grey').place(x=130, y=70) 
@@ -93,10 +102,12 @@ cuadroRespuesta=Entry(raiz, textvariable= contraseñaGenerada, width= 30, font='
 
 
 #botones
-botonGenerar=Button(raiz, text="Generar contraseña", command= lambda:mostrarContraseña()).place(x=160, y=380) 
+botonGenerar=Button(raiz, text="Generar contraseña", command= mostrarContraseña).place(x=150, y=380) 
+botonLimpiar=Button(raiz, text="Borrar contraseña", command= limpiarCuadroRespuesta).place(x=290, y=380) 
+botonLimpiarTodos=Button(raiz, text="Limpiar campos", command= limpiarCampos).place(x=30, y=380) 
 
 #check button
-Check1 = Checkbutton(raiz, text = "Usar mayusculas", variable= hayMayusculas, onvalue = 1, offvalue = 0, height=0, width = 0, font='Arial 12', fg="black").place(x=130, y=210) 
+Check1 = Checkbutton(raiz, text = "Usar mayúsculas", variable= hayMayusculas, onvalue = 1, offvalue = 0, height=0, width = 0, font='Arial 12', fg="black").place(x=130, y=210) 
 Check2 = Checkbutton(raiz, text = " Usar números   ", variable= hayEnteros, onvalue = 1, offvalue = 0, height=0, width = 0, font='Arial 12', fg="black").place(x=130, y=280)
 
 raiz.mainloop()
