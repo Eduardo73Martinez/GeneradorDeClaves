@@ -22,6 +22,14 @@ numeros = "0123456789"
 
 
 def mostrarContraseña():
+    """Describe una contraseña al azar con las cadenas capturadas  y dependiendo de si esta activados los check de
+    los números y las mayusculas las agrega a la base para generarla, genera una diferente cada vez que se ejecuta la funcion.
+
+    Requeriments:
+        - ninguno.
+    Returns:
+        Str: una cadena de caracteres.
+    """
     try:
         stringSimbolos = "".join(list ( capturaSimbolos.get()))
 
@@ -32,10 +40,20 @@ def mostrarContraseña():
         contraseñaGenerada.set(password)
 
     except ValueError:
-        mensajeDeErrorPorEntradaInvalida()
+        mensajeDeErrorPorEntradasInvalidas()
 
 
-def mensajeDeErrorPorEntradaInvalida():
+def mensajeDeErrorPorEntradasInvalidas():
+    """Describe un mensaje de erro si no hay entrada de tamaño o si el tamaño pedido es mayor a la base que tenemos
+    genera una alerta de campos invalidos.
+
+    Args:
+        
+    Requeriments:
+        - ninguno.
+    Returns:
+        Str: devuelve un mensaje de error o de advertencia.
+    """
     if( hayMayusculaActivada() and not hayNumerosActivado()  ):
         return MessageBox.showwarning("Atencion", "Debes colocar una contraseña menor a {}  caracteres".format(49 + len(capturaSimbolos.get())))
 
@@ -49,6 +67,14 @@ def mensajeDeErrorPorEntradaInvalida():
         return MessageBox.showerror("Error ",  " Debes colocar un tamaño de contraseña valido, \n puede tener hasta {} caracteres. ".format(58 + len(capturaSimbolos.get())))
 
 def añadirMayusculasSiHayIndicacion():
+    """Describe el abecedario completo en mayuscula si el check esta prendido. si no esta prendido describe un string vacío.
+
+    Requeriments:
+        - ninguno.
+
+    Returns:
+        Str: el abecedario en mayuscula si el check esta prendido.
+    """
     global letrasmayus
     if (hayMayusculaActivada()):
         return letrasmayus
@@ -57,6 +83,14 @@ def añadirMayusculasSiHayIndicacion():
 
 
 def añadirNumerosSiHayIndicacion():
+    """Describe un string de números si el check de números esta activado. En caso contrario devuelve un string vacío.
+
+    Requeriments:
+        -ninguno.
+
+    Returns:
+        str: un string con numeros del 0 al 9.
+    """
     global numeros
     if( hayNumerosActivado()):
         return numeros
@@ -64,16 +98,33 @@ def añadirNumerosSiHayIndicacion():
         return ""
 
 def hayNumerosActivado():
+    """Indica si el check de números esta activado.
+
+    Returns:
+        bool: True si está activado el check en la ventana False en caso contrario.
+    """
     return  int (hayEnteros.get()) == 1
 
 
 def hayMayusculaActivada():
+    """Indica si el check de mayúsculas de está activado.
+
+    Returns:
+        bool: True si está activado el check en la ventana False en caso contrario.
+    """
     return int(hayMayusculas.get() ) == 1
 
+
 def limpiarCuadroRespuesta():
+    """Setea la contraseña generada con un string vacío.
+
+    """
     return contraseñaGenerada.set("")
 
 def limpiarCampos():
+    """setea todos los campos de la ventana con un string vacío en aquellos que son de tipo StringVar y
+    con un 0 aquellos que son de tipo IntVar.
+    """
     contraseñaGenerada.set("")
     capturaSimbolos.set ("")
     hayMayusculas.set( 0)
