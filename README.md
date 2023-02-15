@@ -1,4 +1,4 @@
-# GeneradorDeContrase-as
+# Generador de contraseñas
 Una interface generador de contraseñas con python.
 
 ## Table of Contents
@@ -7,7 +7,7 @@ Una interface generador de contraseñas con python.
 
 ### General Info
 ***
-Un generador de contraseñas con interface en python. Es un proyecto para practicar genera contraseñas aleatorias con números, mayúsculas y los simbolos que quieras.
+Un generador de contraseñas con interface en python. Es un proyecto que realizé para practicar que genera contraseñas aleatorias con números, mayúsculas y los simbolos que quieras introducir.
 
 ### Screenshot
 ![](https://github.com/Eduardo73Martinez/GeneradorDeContrase-as/blob/master/generador.png)
